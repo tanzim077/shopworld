@@ -1,0 +1,32 @@
+.user-img {
+    height: 40%;
+    margin: 0;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.navbar-brand img {
+    /* height: 20px;
+    width: 30px; */
+    height: 100%;
+    width: 20%;
+    margin-right: 10px;
+    border-radius: 50%;
+
+}
+
+.custom-link a {
+    text-decoration: none;
+}
+
+.user-section p {
+    padding-right: 10px;
+    padding-top: 5px;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 800;
+}
