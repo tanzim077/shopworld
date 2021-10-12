@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import './MenuBar.css';
 
 const MenuBar = () => {
-
+    
     return (
         <div>
             <div>
