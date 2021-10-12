@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
+import useProducts from '../../hooks/useProducts';
 import './MenuBar.css';
 
 const MenuBar = () => {
+    
     
     return (
         <div>
@@ -30,17 +32,7 @@ const MenuBar = () => {
                                     </Navbar.Collapse>
                                 </div>
 
-                                <Form className="d-lg-flex col-lg-3 gap-2">
-                                    <div className="d-flex ">
-                                        <FormControl
-                                            type="search"
-                                            placeholder="Search"
-                                            className="me-2"
-                                            aria-label="Search"
-                                        />
-                                        <Button variant="outline-success">Search</Button>
-                                    </div>
-                                </Form>
+                              
 
                                 {/* <div className=" gap-3 ">
                                     {

@@ -4,8 +4,6 @@ import './Cart.css';
 
 const Cart = (props) => {
   const { cart } = props;
-  console.log(cart);
-  
   let totalRaw = 0;
   let shippingCost = 0;
   let total = 0;
