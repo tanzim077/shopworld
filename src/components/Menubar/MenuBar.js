@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
-import useProducts from '../../hooks/useProducts';
+import useAuth from '../../hooks/useAuth';
 import './MenuBar.css';
 
 const MenuBar = () => {
-    
+    const { user, logOut } = useAuth();
     
     return (
         <div>
@@ -31,10 +31,7 @@ const MenuBar = () => {
                                         </Nav>
                                     </Navbar.Collapse>
                                 </div>
-
-                              
-
-                                {/* <div className=" gap-3 ">
+                                <div className=" gap-3 ">
                                     {
                                         (user.email)
                                             ?
@@ -42,16 +39,16 @@ const MenuBar = () => {
                                                 <p>{user.displayName}</p>
                                                 <div>
                                                     <img src={user.photoURL} className="" alt="" />
-                                                    <Link to="/signout"><Button onClick={signOutButton} variant="primary">Sign Out</Button></Link>
+                                                    <Link to="/signout"><Button onClick={logOut} variant="primary">Sign Out</Button></Link>
                                                 </div>
                                             </div>
                                             :
                                             <div className="d-flex gap-3">
                                                 <Link to="/login"><Button variant="warning">Login</Button></Link>
-                                                <Link to="/registration"><Button variant="info">Register</Button></Link>
+                                                <Link to="/signup"><Button variant="info">Register</Button></Link>
                                             </div>
                                     }
-                                </div> */}
+                                </div>
                             </Container>
                         </Navbar>
                     </div>

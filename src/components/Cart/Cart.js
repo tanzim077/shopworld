@@ -29,7 +29,7 @@ const Cart = (props) => {
         <p>Tax: {tax.toFixed(2)}</p>
         <hr />
         <p>Total Price: {total.toFixed(2)}</p>
-        <Button variant="warning">Proceed to confirm </Button>
+        {props.children}
         </div>
     );
 };
