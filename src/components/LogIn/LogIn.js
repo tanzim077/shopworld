@@ -19,7 +19,8 @@ const LogIn = () => {
             <h5>Not a User? <Link to='/signup'>Register here</Link></h5>
 
             <OtherButtons method="Log In"></OtherButtons>
-        </div>    );
+        </div>
+    );
 };
 
 export default LogIn;

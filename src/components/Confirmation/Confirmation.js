@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 const Confirmation = () => {
@@ -24,7 +25,7 @@ const Confirmation = () => {
 
                 {errors.exampleRequired && <span className="text-danger">This field is required</span>}
 
-                <Button variant="primary" type="submit">Submit</Button>
+                <Link to ="/completeshopping"><Button variant="primary" type="submit">Submit</Button></Link>
             </form>
         </div>
     );

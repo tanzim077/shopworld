@@ -9,6 +9,7 @@ import SignUp from './components/SignUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
 import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import CompleteShopping from './components/CompleteShopping/CompleteShopping';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
             </Route>
             <PrivateRoute exact path="/confirmation">
               <Confirmation></Confirmation>
+            </PrivateRoute>
+            <PrivateRoute exact path='/completeshopping'>
+              <CompleteShopping></CompleteShopping>
             </PrivateRoute>
             <Route exact path="/login">
               <LogIn></LogIn>
