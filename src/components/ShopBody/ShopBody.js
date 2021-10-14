@@ -12,6 +12,8 @@ const ShopBody = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [searchLength, setSearchLength] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemPerPage, setItemPerPage] = useState(10);
 
     useEffect(() => {
         fetch('./products.json')
@@ -38,6 +40,18 @@ const ShopBody = () => {
         }
     }, [products])
 
+
+    const pages = []
+    for (let i = 1; i <= Math.ceil(products.length / itemPerPage); i++) {
+        pages.push(i)
+    }
+    const indexOfLastItem = currentPage * itemPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemPerPage;
+    const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+    console.log(currentItems);
+    console.log(products.slice(0,10));
+
+
     const searchOption = (e) => {
         const searchText = e.target.value.toLowerCase();
         const matchedProducts = products.filter(product => (product.category.toLowerCase().includes(searchText) || product.name.toLowerCase().includes(searchText)))
@@ -54,21 +68,18 @@ const ShopBody = () => {
             const rest = cart.filter(cartProduct => cartProduct.key !== product.key)
             exists.quantity += 1;
             newCart = [...rest, product]
-
-
-            
         }
         else {
             product.quantity = 1;
             newCart = [...cart, product];
-
-
         }
-
         setCart(newCart);
         addToDb(product.key)
     }
 
+    const handleButton = (page) => {
+        setCurrentPage(page)
+    }
 
     return (
         <div>
@@ -92,19 +103,27 @@ const ShopBody = () => {
             <div className="container d-flex">
                 <div className="container d-flex flex-wrap gap-3 col-lg-10 border-end border-2 border-primary">
                     {
-                        displayProducts.map(product => <Product
+                        currentItems.map(product => <Product
                             key={product.key}
                             product={product}
                             addToCartButon={addToCartButon}
                         ></Product>)
                     }
                 </div>
-
+                
                 <div className="container">
                     <Cart cart={cart}>
                         <Link to="/order"><Button variant="warning">Proceed To Confirm</Button></Link>
                     </Cart>
                 </div>
+
+            </div>
+            <div className="mx-5 py-3">
+                {
+                    pages.map(page =>
+                        <Button onClick = {() => handleButton(page) } className="m-1">{page}</Button>
+                    )
+                }
 
             </div>
         </div>
