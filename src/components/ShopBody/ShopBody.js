@@ -12,8 +12,6 @@ const ShopBody = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [searchLength, setSearchLength] = useState(0)
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemPerPage, setItemPerPage] = useState(10);
 
     useEffect(() => {
         fetch('./products.json')
@@ -41,16 +39,24 @@ const ShopBody = () => {
     }, [products])
 
 
-    const pages = []
-    for (let i = 1; i <= Math.ceil(products.length / itemPerPage); i++) {
-        pages.push(i)
-    }
-    const indexOfLastItem = currentPage * itemPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemPerPage;
-    const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
-    console.log(currentItems);
-    console.log(products.slice(0,10));
+    // Pagination it 
 
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [itemPerPage, setItemPerPage] = useState(10);
+
+    // const pages = []
+    // for (let i = 1; i <= Math.ceil(products.length / itemPerPage); i++) {
+    //     pages.push(i)
+    // }
+    // const indexOfLastItem = currentPage * itemPerPage;
+    // const indexOfFirstItem = indexOfLastItem - itemPerPage;
+    // const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+    // console.log(currentItems);
+    // console.log(products.slice(0,10));
+    
+    // const handleButton = (page) => {
+    //     setCurrentPage(page)
+    // }
 
     const searchOption = (e) => {
         const searchText = e.target.value.toLowerCase();
@@ -58,7 +64,6 @@ const ShopBody = () => {
         setDisplayProducts(matchedProducts);
         const matchedProductsLength = matchedProducts.length;
         setSearchLength(matchedProductsLength);
-        console.log(matchedProductsLength);
     }
 
     const addToCartButon = product => {
@@ -77,9 +82,7 @@ const ShopBody = () => {
         addToDb(product.key)
     }
 
-    const handleButton = (page) => {
-        setCurrentPage(page)
-    }
+
 
     return (
         <div>
@@ -100,17 +103,18 @@ const ShopBody = () => {
                 </Form>
 
             </div>
-            <div className="container d-flex">
+            <div className="container d-lg-flex">
                 <div className="container d-flex flex-wrap gap-3 col-lg-10 border-end border-2 border-primary">
                     {
-                        currentItems.map(product => <Product
+                        // currentItems.map(product => <Product
+                        displayProducts.map(product => <Product
                             key={product.key}
                             product={product}
                             addToCartButon={addToCartButon}
                         ></Product>)
                     }
                 </div>
-                
+
                 <div className="container">
                     <Cart cart={cart}>
                         <Link to="/order"><Button variant="warning">Proceed To Confirm</Button></Link>
@@ -118,14 +122,14 @@ const ShopBody = () => {
                 </div>
 
             </div>
-            <div className="mx-5 py-3">
+            {/* <div className="mx-5 py-3">
                 {
                     pages.map(page =>
-                        <Button onClick = {() => handleButton(page) } className="m-1">{page}</Button>
+                        <Button onClick={() => handleButton(page)} className="m-1">{page}</Button>
                     )
                 }
 
-            </div>
+            </div> */}
         </div>
     );
 };

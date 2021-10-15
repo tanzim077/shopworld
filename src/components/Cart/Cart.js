@@ -20,7 +20,7 @@ const Cart = (props) => {
   }
 
     return (
-      <div className='cart d-flex flex-column '>
+      <div className='cart d-flex flex-column'>
         <h5>Shopping Summery</h5>
         <hr />
         <p>items Selected: {totalQuantity}</p>

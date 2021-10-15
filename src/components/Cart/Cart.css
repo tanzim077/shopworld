@@ -1,5 +1,14 @@
 .cart {
-    top: 4em;
+    /* top: 4em;
     right: 5em;
+    position: fixed; */
+    top: 30%;
+    right: 5%;
     position: fixed;
+}
+
+@media screen and (max-width: 480px) {
+    .cart{
+        position: static;
+    }
 }
