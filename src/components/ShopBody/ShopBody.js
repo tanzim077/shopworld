@@ -41,7 +41,7 @@ const ShopBody = () => {
     // Pagination 
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemPerPage, setItemPerPage] = useState(10);
+    const [itemPerPage, setItemPerPage] = useState(12);
 
     const pages = []
     for (let i = 1; i <= Math.ceil(products.length / itemPerPage); i++) {
@@ -89,11 +89,11 @@ const ShopBody = () => {
     const handlePreviousButton = () => {
         (currentPage > pages[0]) &&
             setCurrentPage(currentPage - 1)
-        
+
     }
     const handleNextButton = () => {
-        (currentPage < pages[pages.length-1]) &&
-        setCurrentPage(currentPage + 1)
+        (currentPage < pages[pages.length - 1]) &&
+            setCurrentPage(currentPage + 1)
     }
 
     return (

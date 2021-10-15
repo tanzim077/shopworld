@@ -5,8 +5,7 @@ import './Product.css'
 
 const Product = (props) => {
     const { key, category, img, name, price, seller, shipping, star, starCount, stock } = props.product;
-
-
+    
     return (
         <Card style={{ width: '18rem' }} className="col-lg-4">
             <Card.Img className="card-image mx-auto" variant="top" src={img} />
