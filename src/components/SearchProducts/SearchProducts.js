@@ -1,20 +1,17 @@
 import React from 'react';
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Rating from 'react-rating';
-import './Product.css'
 
-const Product = (props) => {
+const SearchProducts = (props) => {
     const { key, category, img, name, price, seller, shipping, star, starCount, stock } = props.product;
-
-
     return (
         <Card style={{ width: '18rem' }} className="col-lg-4">
             <Card.Img className="card-image mx-auto" variant="top" src={img} />
             <Card.Body>
                 <Card.Title>
-                   {/* {name.slice(0,10)} */}
+                    {/* {name.slice(0,10)} */}
                     {
-                        (name.length > 80) ? name.slice(0, 80) + '...'  :  name
+                        (name.length > 80) ? name.slice(0, 80) + '...' : name
                     }
                 </Card.Title>
 
@@ -46,5 +43,5 @@ const Product = (props) => {
         </Card>
     );
 };
-// onClick = { addToCartButon }
-export default Product;
+
+export default SearchProducts;
