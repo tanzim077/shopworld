@@ -5,7 +5,6 @@ import { addToDb, getStoredCart } from '../../fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 
-
 const ShopBody = () => {
 
     const [displayProducts, setDisplayProducts] = useState([])
@@ -51,8 +50,6 @@ const ShopBody = () => {
     const indexOfLastItem = currentPage * itemPerPage;
     const indexOfFirstItem = indexOfLastItem - itemPerPage;
     const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
-    // console.log(currentItems);
-    // console.log(products.slice(0, 10));
 
     const handleButton = (page) => {
         setCurrentPage(page)
@@ -88,7 +85,16 @@ const ShopBody = () => {
         setCart(newCart);
         addToDb(product.key)
     }
-    // console.log(displayProducts.length);
+
+    const handlePreviousButton = () => {
+        (currentPage > pages[0]) &&
+            setCurrentPage(currentPage - 1)
+        
+    }
+    const handleNextButton = () => {
+        (currentPage < pages[pages.length-1]) &&
+        setCurrentPage(currentPage + 1)
+    }
 
     return (
         <div>
@@ -102,13 +108,18 @@ const ShopBody = () => {
                             className="me-2 col-lg-6"
                             aria-label="Search"
                         />
-                        <div className="me-2 col-lg-6">
-                            <p>{searchLength} results found</p>
+                        <div className=" col-lg-4">
+                            {
+                                (displayProducts.length > 0) &&
+                                <p>{searchLength} results found</p>
+                            }
                         </div>
+
                     </div>
                 </Form>
-
             </div>
+
+
             <div className="container d-lg-flex">
                 <div className="container d-flex flex-wrap gap-3 col-lg-10 border-end border-2 border-primary">
                     {
@@ -124,7 +135,6 @@ const ShopBody = () => {
                                 addToCartButon={addToCartButon}
                             ></Product>)
                     }
-
                 </div>
 
                 <div className="container">
@@ -134,12 +144,15 @@ const ShopBody = () => {
                 </div>
 
             </div>
-            <div className="mx-5 py-3">
+            <div className="mx-5 py-3 d-flex justify-content-center">
+                <Button onClick={() => handlePreviousButton()} className="m-1">Previous</Button>
                 {
                     pages.map(page =>
-                        <Button onClick={() => handleButton(page)} className="m-1">{page}</Button>
+                        <Button key={page} onClick={() => handleButton(page)} className="m-1">{page}</Button>
                     )
                 }
+                <Button onClick={() => handleNextButton()} className="m-1">Next </Button>
+
             </div>
         </div>
     );
