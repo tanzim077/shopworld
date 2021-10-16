@@ -14,7 +14,9 @@ const LogIn = () => {
                 <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                 <input type="password" className="form-control" id="exampleInputPassword1" />
             </div>
-            <button type="submit" className="btn btn-primary">Log In</button>
+            <div className="d-flex justify-content-center">
+                <button type="submit" className="btn btn-primary text-center">Log In</button>
+            </div>
             <br /><br />
             <h5>Not a User? <Link to='/signup'>Register here</Link></h5>
 

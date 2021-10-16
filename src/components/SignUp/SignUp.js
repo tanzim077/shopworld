@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import OtherButtons from '../OtherButtons/OtherButtons';
 
 const SignUp = () => {
-    
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -42,13 +42,15 @@ const SignUp = () => {
                         <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                         <input type="password" onBlur={passwordHandle} className="form-control" id="exampleInputPassword1" />
                     </div>
-                    <button type="submit" className="btn btn-primary">Register</button>
+                    <div className="d-flex justify-content-center">
+                        <button type="submit" className="text-center btn btn-primary">Register</button>
+                    </div>
                     <br /><br />
                     <h5>ALready a User? <Link to='/login'>Log In here</Link></h5>
                     <OtherButtons method="Register"></OtherButtons>
                 </div>
             </form>
-        </div>    );
+        </div>);
 };
 
 export default SignUp;
