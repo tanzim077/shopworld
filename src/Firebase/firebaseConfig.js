@@ -1,10 +1,10 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyAfIZD0j-5qYVJcqjI_6jY7QHANJcXVTZw",
-    authDomain: "shop-world-fc9d6.firebaseapp.com",
-    projectId: "shop-world-fc9d6",
-    storageBucket: "shop-world-fc9d6.appspot.com",
-    messagingSenderId: "371034187554",
-    appId: "1:371034187554:web:7848d3523f697888e1677b"
+    apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
+    appId: process.env.REACT_APP_FIREBASE_APPID
 };
 
 export default firebaseConfig;

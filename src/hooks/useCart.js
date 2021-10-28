@@ -1,25 +1,34 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { getStoredCart } from '../fakedb';
 
-const useCart = (products) => {
+const useCart = () => {
     const [cart, setCart] = useState([]);
 
-    useEffect( () => {
-        if (products.length) {
-            const savedCart = getStoredCart();
-            const storedCart = []
-            for (const key in savedCart) {
-                const addedProducts = products.find(product => product.key === key)
-                if (addedProducts) {
-                    const quantity = savedCart[key]
-                    addedProducts.quantity = quantity
-                    storedCart.push(addedProducts)
+    useEffect(() => {
+        const savedCart = getStoredCart();
+        const keys = Object.keys(savedCart);
+
+        axios.post('https://ancient-reef-31151.herokuapp.com/products/usekeys', keys)
+            .then(function (productsCollection) {
+                const products = productsCollection.data;
+                if (products.length) {
+                    const storedCart = []
+                    for (const key in savedCart) {
+                        const addedProducts = products.find(product => product.key === key)
+                        if (addedProducts) {
+                            const quantity = savedCart[key]
+                            addedProducts.quantity = quantity
+                            storedCart.push(addedProducts)
+                        }
+                    }
+                    setCart(storedCart)
                 }
-            }
-        setCart(storedCart)
-        }
-    }, [products])
-    
+            })
+
+
+    }, [])
+
     return [cart, setCart];
 };
 

@@ -10,20 +10,19 @@ import SingleItem from '../SingleItem/SingleItem';
 const OrderReview = () => {
 
     const [products] = useProducts();
-    const [cart, setCart] = useCart(products);
+    const [cart, setCart] = useCart();
     const history = useHistory();
 
     const removeFromCart = (key) => {
         const updateCart = cart.filter(product => product.key !== key)
         setCart(updateCart)
         removeFromDb(key)
-        console.log(key);
     }
 
     const confirmation = () => {
         history.push('/confirmation')
-        setCart([]) //Remove from UI
-        clearTheCart();
+        // setCart([]) //Remove from UI
+        // clearTheCart();
 
     }
         return (

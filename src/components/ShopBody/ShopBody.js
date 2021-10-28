@@ -2,59 +2,34 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { addToDb, getStoredCart } from '../../fakedb';
+import useCart from '../../hooks/useCart';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
+import './ShopBody.css';
 
 const ShopBody = () => {
-
     const [displayProducts, setDisplayProducts] = useState([])
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useCart([]);
     const [searchLength, setSearchLength] = useState(0)
+    const [pageCount, setPageCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+    const size = 12;
 
+    // This is for pagination whenever the page number change it render
     useEffect(() => {
-        fetch('./products.json')
+        fetch(`https://ancient-reef-31151.herokuapp.com/products?currentpage=${currentPage}&&size=${size}`)
             .then(res => res.json())
             .then(data => {
-                setProducts(data);
-                // setDisplayProducts(data);    
+                setProducts(data.products);
+                setDisplayProducts(data.products);
+                const count = data.count;
+                const pageNumber = Math.ceil(count / size);
+                setPageCount(pageNumber);
             })
-    }, [])
+    }, [currentPage])
 
-    useEffect(() => {
-        if (products.length) {
-            const stored_cart = [];
-            const saved_cart = getStoredCart();
-            for (const key in saved_cart) {
-                const added_product = products.find(product => product.key === key);
-                if (added_product) {
-                    const quantity = saved_cart[key]
-                    added_product.quantity = quantity;
-                    stored_cart.push(added_product);
-                }
-            }
-            setCart(stored_cart);
-        }
-    }, [products])
-
-
-    // Pagination 
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemPerPage, setItemPerPage] = useState(12);
-
-    const pages = []
-    for (let i = 1; i <= Math.ceil(products.length / itemPerPage); i++) {
-        pages.push(i)
-    }
-    const indexOfLastItem = currentPage * itemPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemPerPage;
-    const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
-
-    const handleButton = (page) => {
-        setCurrentPage(page)
-    }
-
+    // This is for search a product
     const searchOption = (e) => {
         const searchText = e.target.value.toLowerCase();
         const matchedProducts = products.filter(product => (product.category.toLowerCase().includes(searchText) || product.name.toLowerCase().includes(searchText)))
@@ -67,16 +42,15 @@ const ShopBody = () => {
         else {
             setDisplayProducts([])
         }
-        console.log(searchText.length);
     }
 
     const addToCartButon = product => {
-        const exists = cart.find(cartProduct => cartProduct.key === product.key)
+        const exists = cart.find(cartProduct => cartProduct.key === product.key);
         let newCart = [];
         if (exists) {
             const rest = cart.filter(cartProduct => cartProduct.key !== product.key)
             exists.quantity += 1;
-            newCart = [...rest, product]
+            newCart = [...rest, exists]
         }
         else {
             product.quantity = 1;
@@ -86,15 +60,6 @@ const ShopBody = () => {
         addToDb(product.key)
     }
 
-    const handlePreviousButton = () => {
-        (currentPage > pages[0]) &&
-            setCurrentPage(currentPage - 1)
-
-    }
-    const handleNextButton = () => {
-        (currentPage < pages[pages.length - 1]) &&
-            setCurrentPage(currentPage + 1)
-    }
 
     return (
         <div>
@@ -124,7 +89,7 @@ const ShopBody = () => {
                 <div className="container d-flex flex-wrap gap-3 col-lg-10 border-end border-2 border-primary">
                     {
                         (displayProducts.length === 0) ?
-                            currentItems.map(product => <Product
+                            displayProducts.map(product => <Product
                                 key={product.key}
                                 product={product}
                                 addToCartButon={addToCartButon}
@@ -144,15 +109,12 @@ const ShopBody = () => {
                 </div>
 
             </div>
-            <div className="mx-5 py-3 d-flex justify-content-center">
-                <Button onClick={() => handlePreviousButton()} className="m-1">Previous</Button>
-                {
-                    pages.map(page =>
-                        <Button key={page} onClick={() => handleButton(page)} className="m-1">{page}</Button>
-                    )
-                }
-                <Button onClick={() => handleNextButton()} className="m-1">Next </Button>
 
+            <div className="mx-5 py-3 d-flex  justify-content-center">
+                {
+                    [...Array(pageCount).keys()].map(page =>
+                        <button className={page === currentPage ? "m-1 selected pagination" : "m-1 pagination"} key={page} onClick={() => setCurrentPage(page)}>{page + 1}</button>)
+                }
             </div>
         </div>
     );

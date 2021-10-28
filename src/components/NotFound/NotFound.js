@@ -1,5 +1,5 @@
 import React from 'react';
-import './NotFOund.css';
+import './NotFound.css';
 import error1 from '../../images/404.png'
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';

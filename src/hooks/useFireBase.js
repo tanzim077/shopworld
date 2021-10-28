@@ -14,21 +14,21 @@ const useFirebase = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user)
-             }
+            }
         });
-    },[])
+    }, [])
 
     const signInUsingGoogle = () => {
         return signInWithPopup(auth, googleProvider)
-    
-            
+
+
     }
     const logOut = () => {
         signOut(auth).then(() => {
             setUser({})
         })
     }
-return {user, signInUsingGoogle, logOut}
+    return { user, signInUsingGoogle, logOut }
 }
 
 export default useFirebase;

@@ -1,14 +1,32 @@
+import axios from 'axios';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { clearTheCart, getStoredCart } from '../../fakedb';
 import useAuth from '../../hooks/useAuth';
 
 const Confirmation = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
     const { user } = useAuth();
+
+    const history = useHistory();
+
     const onSubmit = data => {
-        console.log(data)
+        const savedCart = getStoredCart();
+        data.order = savedCart;
+
+        axios.post('https://ancient-reef-31151.herokuapp.com/products/orders', data)
+            .then(function (result) {
+                if (result.data.insertedId) {
+                    alert("Data Inserted Successfully");
+                    clearTheCart();
+                    reset();
+                }
+            })
+
+        // history.push('/completeshopping');
+
     };
     return (
         <div className="container p-4 ">
@@ -24,8 +42,8 @@ const Confirmation = () => {
                 <input className="form-control" placeholder="Notes / Tags" {...register("extra", { required: false })} />
 
                 {errors.exampleRequired && <span className="text-danger">This field is required</span>}
+                <Button variant="primary" type="submit">Submit</Button>
 
-                <Link to ="/completeshopping"><Button variant="primary" type="submit">Submit</Button></Link>
             </form>
         </div>
     );

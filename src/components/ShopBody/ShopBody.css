@@ -1,0 +1,7 @@
+.pagination{
+    background-color:blue;
+    padding:7px 10px;
+}
+.selected{
+    background-color: chartreuse;
+}
