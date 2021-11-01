@@ -16,7 +16,8 @@ const Confirmation = () => {
         const savedCart = getStoredCart();
         data.order = savedCart;
 
-        axios.post('https://ancient-reef-31151.herokuapp.com/products/orders', data)
+        // axios.post('https://ancient-reef-31151.herokuapp.com/products/orders', data)
+        axios.post('http://localhost:3100/products/orders', data)
             .then(function (result) {
                 if (result.data.insertedId) {
                     alert("Data Inserted Successfully");

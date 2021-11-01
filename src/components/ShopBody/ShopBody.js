@@ -18,7 +18,8 @@ const ShopBody = () => {
 
     // This is for pagination whenever the page number change it render
     useEffect(() => {
-        fetch(`https://ancient-reef-31151.herokuapp.com/products?currentpage=${currentPage}&&size=${size}`)
+        // fetch(`https://ancient-reef-31151.herokuapp.com/products?currentpage=${currentPage}&&size=${size}`)
+        fetch(`http://localhost:3100/products?currentpage=${currentPage}&&size=${size}`)
             .then(res => res.json())
             .then(data => {
                 setProducts(data.products);

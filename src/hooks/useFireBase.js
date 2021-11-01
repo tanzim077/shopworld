@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithPopup, getIdToken, GoogleAuthProvider, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import initializedApp from "../Firebase/initializedApp";
 
@@ -13,6 +13,8 @@ const useFirebase = () => {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                getIdToken(user)
+                    .then(idToken => localStorage.setItem('idToken', idToken));
                 setUser(user)
             }
         });

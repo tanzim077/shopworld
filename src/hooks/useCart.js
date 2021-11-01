@@ -9,7 +9,8 @@ const useCart = () => {
         const savedCart = getStoredCart();
         const keys = Object.keys(savedCart);
 
-        axios.post('https://ancient-reef-31151.herokuapp.com/products/usekeys', keys)
+        // axios.post('https://ancient-reef-31151.herokuapp.com/products/usekeys', keys)
+        axios.post('http://localhost:3100/products/usekeys', keys)
             .then(function (productsCollection) {
                 const products = productsCollection.data;
                 if (products.length) {
